@@ -1,0 +1,31 @@
+{
+  "name": "dino",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "standard": "^16.0.3"
+  },
+  "devDependencies": {
+    "ts-loader": "^9.2.3",
+    "typescript": "^4.3.2",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "scripts": {
+    "serve": "webpack serve",
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saya9729/Dino.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/saya9729/Dino/issues"
+  },
+  "homepage": "https://github.com/saya9729/Dino#readme"
+}
