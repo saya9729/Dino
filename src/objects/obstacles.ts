@@ -23,4 +23,8 @@ export class obstacle extends objects {
     nowSprite(){
         return this.sprites.nowSprite();
     }
+    update(delta: number,speed:number){
+        this.nextSprite(delta);
+        this.move(speed)
+    }
 }

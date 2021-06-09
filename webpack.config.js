@@ -1,6 +1,6 @@
 const path = require('path')
 module.exports = {
-  entry: './src/engine.ts',
+  entry: './src/index.ts',
   module: {
     rules: [
       {
@@ -14,8 +14,12 @@ module.exports = {
     extensions: ['.ts', '.js']
   },
   output: {
-    publicPath: 'public',
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'public')
+  },
+  mode: 'development',
+  devServer: {
+    open: true,
+    writeToDisk: true
   }
 }

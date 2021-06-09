@@ -1,6 +1,6 @@
-import { gameController } from './game_controller'
+//import { GameApp } from './GameApp'
 
-const controller = new gameController();
+const controller = new GameApp();
 let lastTime = window.performance.now();
 let delta = 0;
 

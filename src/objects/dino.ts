@@ -13,6 +13,9 @@ export class dino extends objects {
     delay: any
     runSprites: sprite
     duckSprites: sprite
+    jumpInput: boolean[]
+    duckInput: boolean[]
+    unDuckInput: boolean[]
     constructor(width: number, height: number, groundHeight: number, spriteArray: HTMLImageElement[], spriteArrayDuck: HTMLImageElement[], delay: number) {
         super()
         this.width = width
@@ -29,6 +32,10 @@ export class dino extends objects {
 
         this.runSprites = new sprite(spriteArray, delay);
         this.duckSprites = new sprite(spriteArrayDuck, delay);
+
+        this.jumpInput=[];
+        this.duckInput=[];
+        this.unDuckInput=[];
     }
 
 
@@ -43,19 +50,19 @@ export class dino extends objects {
         }
     }
 
-    duck(width: number, height: number) {
+    duck() {
         this.state = 'DUCKING'
-        this.height = height
-        this.width = width
+        this.height = this.nowSprite().height
+        this.width = this.nowSprite().width
 
         this.posX = this.width / 2
         this.posY = this.groundHeight - this.height / 2
     }
 
-    unDuck(width: number, height: number) {
+    unDuck() {
         this.state = 'RUNNING'
-        this.height = height
-        this.width = width
+        this.height = this.nowSprite().height
+        this.width = this.nowSprite().width
 
         this.posX = this.width / 2
         this.posY = this.groundHeight - this.height / 2
@@ -73,6 +80,30 @@ export class dino extends objects {
             case "DUCKING":
                 return this.duckSprites.nowSprite();
                 
+        }
+    }
+    update(delta: any){
+        this.nextSprite(delta);
+        switch(this.state){
+            case 'JUMPING':
+                this.jump(delta);
+                break;
+            case 'DUCKING':
+                if (this.unDuckInput[0]){
+                    this.unDuck();
+                    break;
+                }
+            case "RUNNING":
+                if (this.jumpInput[0] && this.duckInput[0]){
+                    break;
+                }
+                else if (this.jumpInput[0]){
+                    this.jump(delta);
+                }
+                else if (this.duckInput[0]){
+                    this.duck();
+                }
+                break;
         }
     }
 }
