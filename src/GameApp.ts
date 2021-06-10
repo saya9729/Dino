@@ -1,15 +1,11 @@
-import { Game } from './Game'
-import { gameScene } from './scenes/game_scene'
-import { gameOverScene } from './scenes/game_over_scene'
+import { Game } from './Engine/Game'
+import { GamePlayScene } from './Scenes/GamePlayScene'
+import { GameOverScene } from './Scenes/GameOverScene'
 
 export class GameApp extends Game {
-  constructor() {
-    super();
-    this.scenes.create([new gameScene(), new gameOverScene()])
+  constructor () {
+    super()
+    this.scenes.create([new GamePlayScene(this), new GameOverScene(this)])
     this.renderer.create(this.scenes.currentScene(), this.scenes.currentScene().objectsToRender)
-
-    this.scenes.scenes[0].player.jumpInput = this.input.addWatch(32, 'down')
-    this.scenes.scenes[0].player.duckInput = this.input.addWatch(40, 'down')
-    this.scenes.scenes[0].player.unDuckInput = this.input.addWatch(40, 'up')
   }
 }

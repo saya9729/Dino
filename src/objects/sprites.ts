@@ -1,4 +1,4 @@
-export class sprite {
+export class Sprite {
     spriteArray: any
     lastIndex: number
     delay: any

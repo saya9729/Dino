@@ -1,8 +1,8 @@
-import { dino } from "../objects/dino"
-import { obstacle } from "../objects/obstacles"
-import { Scene } from '../Scene'
-import { Texture } from "../Texture"
-export class gameScene extends Scene {
+import { Dino } from "../Objects/Dino"
+import { Obstacle } from "../Objects/Obstacles"
+import { Scene } from '../Engine/Scene'
+import { Texture } from "../Engine/Texture"
+export class GamePlayScene extends Scene {
   groundImg: HTMLImageElement
   cactus1Img: HTMLImageElement
   cactus2Img: HTMLImageElement
@@ -22,7 +22,7 @@ export class gameScene extends Scene {
   level3BirdHeight: number
   canvas: HTMLCanvasElement
   context: any
-  player: dino
+  player: Dino
   obstacleArray: any[]
   speed: number
   acceleration: number
@@ -32,8 +32,8 @@ export class gameScene extends Scene {
   offset: number
   scoreShow: HTMLElement
   highScoreShow: HTMLElement
-  constructor() {
-    super();
+  constructor(game: any) {
+    super(game);
     this.groundImg = new Image()
     this.groundImg.src = '../../assets/images/ground.png'
     this.cactus1Img = new Image()
@@ -68,7 +68,7 @@ export class gameScene extends Scene {
 
     this.canvas = document.getElementById('gamezone') as HTMLCanvasElement
     this.context = this.canvas.getContext('2d')
-    this.player = new dino(this.dino1Img.width, this.dino1Img.height, this.canvas.height, [this.dino1Img, this.dino2Img], [this.dinoDuck1Img, this.dinoDuck2Img], 333)
+    this.player = new Dino(this.dino1Img.width, this.dino1Img.height, this.canvas.height, [this.dino1Img, this.dino2Img], [this.dinoDuck1Img, this.dinoDuck2Img], 333,this.game)
     this.obstacleArray = []
     this.speed = 7// later
     this.acceleration = 0.0001// later
@@ -87,23 +87,23 @@ export class gameScene extends Scene {
     const obstacleId = Math.round(Math.random() * 8)
     switch (obstacleId) {
       case 0:
-        return new obstacle(this.cactus1Img.width, this.cactus1Img.height, this.canvas.width, this.canvas.height - this.cactus1Img.height / 2, [this.cactus1Img], 500)
+        return new Obstacle(this.cactus1Img.width, this.cactus1Img.height, this.canvas.width, this.canvas.height - this.cactus1Img.height / 2, [this.cactus1Img], 500)
       case 1:
-        return new obstacle(this.cactus2Img.width, this.cactus2Img.height, this.canvas.width, this.canvas.height - this.cactus2Img.height / 2, [this.cactus2Img], 500)
+        return new Obstacle(this.cactus2Img.width, this.cactus2Img.height, this.canvas.width, this.canvas.height - this.cactus2Img.height / 2, [this.cactus2Img], 500)
       case 2:
-        return new obstacle(this.cactus3Img.width, this.cactus3Img.height, this.canvas.width, this.canvas.height - this.cactus3Img.height / 2, [this.cactus3Img], 500)
+        return new Obstacle(this.cactus3Img.width, this.cactus3Img.height, this.canvas.width, this.canvas.height - this.cactus3Img.height / 2, [this.cactus3Img], 500)
       case 3:
-        return new obstacle(this.cactusBig1Img.width, this.cactusBig1Img.height, this.canvas.width, this.canvas.height - this.cactusBig1Img.height / 2, [this.cactusBig1Img], 500)
+        return new Obstacle(this.cactusBig1Img.width, this.cactusBig1Img.height, this.canvas.width, this.canvas.height - this.cactusBig1Img.height / 2, [this.cactusBig1Img], 500)
       case 4:
-        return new obstacle(this.cactusBig2Img.width, this.cactusBig2Img.height, this.canvas.width, this.canvas.height - this.cactusBig2Img.height / 2, [this.cactusBig2Img], 500)
+        return new Obstacle(this.cactusBig2Img.width, this.cactusBig2Img.height, this.canvas.width, this.canvas.height - this.cactusBig2Img.height / 2, [this.cactusBig2Img], 500)
       case 5:
-        return new obstacle(this.cactusBig3Img.width, this.cactusBig3Img.height, this.canvas.width, this.canvas.height - this.cactusBig3Img.height / 2, [this.cactusBig3Img], 500)
+        return new Obstacle(this.cactusBig3Img.width, this.cactusBig3Img.height, this.canvas.width, this.canvas.height - this.cactusBig3Img.height / 2, [this.cactusBig3Img], 500)
       case 6:
-        return new obstacle(this.bird1Img.width, this.bird1Img.height, this.canvas.width, this.canvas.height - this.level1BirdHeight, [this.bird1Img, this.bird2Img], 333)
+        return new Obstacle(this.bird1Img.width, this.bird1Img.height, this.canvas.width, this.canvas.height - this.level1BirdHeight, [this.bird1Img, this.bird2Img], 333)
       case 7:
-        return new obstacle(this.bird1Img.width, this.bird1Img.height, this.canvas.width, this.canvas.height - this.level2BirdHeight, [this.bird1Img, this.bird2Img], 333)
+        return new Obstacle(this.bird1Img.width, this.bird1Img.height, this.canvas.width, this.canvas.height - this.level2BirdHeight, [this.bird1Img, this.bird2Img], 333)
       case 8:
-        return new obstacle(this.bird1Img.width, this.bird1Img.height, this.canvas.width, this.canvas.height - this.level3BirdHeight, [this.bird1Img, this.bird2Img], 333)
+        return new Obstacle(this.bird1Img.width, this.bird1Img.height, this.canvas.width, this.canvas.height - this.level3BirdHeight, [this.bird1Img, this.bird2Img], 333)
     }
   }
 
@@ -150,7 +150,7 @@ export class gameScene extends Scene {
   }
   restartScene(){
     this.isRunning=true;
-    this.player = new dino(this.dino1Img.width, this.dino1Img.height, this.canvas.height, [this.dino1Img, this.dino2Img], [this.dinoDuck1Img, this.dinoDuck2Img], 333)
+    this.player = new Dino(this.dino1Img.width, this.dino1Img.height, this.canvas.height, [this.dino1Img, this.dino2Img], [this.dinoDuck1Img, this.dinoDuck2Img], 333,this.game)
     this.obstacleArray = []
     this.speed = 7// later
     this.acceleration = 0.0001// later

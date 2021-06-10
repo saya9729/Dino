@@ -7,7 +7,9 @@ export class Scene {
     canvas: any
     context: any
     objectsToRender: Texture[]
-    constructor() {
+    game: any
+    constructor(game:any) {
+        this.game=game;
         this.isRunning = false
         this.event = 'continue'
         this.nextSceneID = 1

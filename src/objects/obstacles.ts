@@ -1,18 +1,18 @@
-import { objects } from "./objects"
-import {sprite} from "./sprites"
-export class obstacle extends objects {
+import { AbstractGameObject } from "../Engine/AbstractGameObject"
+import {Sprite} from "./Sprites"
+export class Obstacle extends AbstractGameObject {
     spriteArray: any
     lastIndex!: number
     delay: any
     nowDelay!: number
-    sprites: sprite
+    sprites: Sprite
     constructor(width: number, height: number, posX: number, posY: number, spriteArray: HTMLImageElement[], delay: number) {
         super();
         this.width = width
         this.height = height
         this.posX = posX
         this.posY = posY
-        this.sprites=new sprite(spriteArray,delay)
+        this.sprites=new Sprite(spriteArray,delay)
     }
     move(speed: number) {
         this.posX -= speed

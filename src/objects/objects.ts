@@ -1,6 +1,6 @@
-export class objects {
-  width: any
-  height: any
+export class Objects {
+  width!: number
+  height!: number
   posX!: number
   posY!: number
 }

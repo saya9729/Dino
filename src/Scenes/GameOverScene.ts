@@ -1,12 +1,12 @@
-import { Scene } from "../Scene"
+import { Scene } from "../Engine/Scene"
 
-export class gameOverScene extends Scene {
+export class GameOverScene extends Scene {
     restartButtonImg: HTMLImageElement;
     gameOverImg: HTMLImageElement;
     offset: number;
    
-    constructor() {
-        super();
+    constructor(game :any) {
+        super(game);
         this.canvas = document.getElementById('gamezone') as HTMLCanvasElement
         this.context = this.canvas.getContext('2d')
         this.restartButtonImg = new Image()

@@ -1,6 +1,6 @@
-import { objects } from "./objects"
-import { sprite } from "./sprites"
-export class dino extends objects {
+import { AbstractGameObject } from "../Engine/AbstractGameObject"
+import { Sprite } from "./Sprites"
+export class Dino extends AbstractGameObject {
     timeToLand: number
     v0: number
     g: number
@@ -11,13 +11,15 @@ export class dino extends objects {
     spriteArray: any
     spriteArrayDuck: any
     delay: any
-    runSprites: sprite
-    duckSprites: sprite
+    runSprites: Sprite
+    duckSprites: Sprite
     jumpInput: boolean[]
     duckInput: boolean[]
     unDuckInput: boolean[]
-    constructor(width: number, height: number, groundHeight: number, spriteArray: HTMLImageElement[], spriteArrayDuck: HTMLImageElement[], delay: number) {
+    game: any
+    constructor(width: number, height: number, groundHeight: number, spriteArray: HTMLImageElement[], spriteArrayDuck: HTMLImageElement[], delay: number,game:any) {
         super()
+        this.game=game;
         this.width = width
         this.height = height
         this.posX = width / 2
@@ -30,14 +32,13 @@ export class dino extends objects {
         this.timeToLand = 2 * this.v0 * 1000 / this.g//ms questionable behavior
         this.timeInTheAir = 0
 
-        this.runSprites = new sprite(spriteArray, delay);
-        this.duckSprites = new sprite(spriteArrayDuck, delay);
+        this.runSprites = new Sprite(spriteArray, delay);
+        this.duckSprites = new Sprite(spriteArrayDuck, delay);
 
-        this.jumpInput=[];
-        this.duckInput=[];
-        this.unDuckInput=[];
+        this.jumpInput = this.game.input.addWatch(32, 'down')
+        this.duckInput = this.game.input.addWatch(40, 'down')
+        this.unDuckInput = this.game.input.addWatch(40, 'up')
     }
-
 
     jump(delta: number) {
         this.state = 'JUMPING';
